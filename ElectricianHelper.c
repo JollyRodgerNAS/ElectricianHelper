@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int ohmsLawCalculator(void);
+float ohmsLawCalculator(void);
 
 int main(void) 
 {
@@ -30,14 +30,18 @@ int main(void)
 		{
 			case 1: 
 			{
-				int result = ohmsLawCalculator();
+				float result = ohmsLawCalculator();
 				if (result == -1) 
 				{
 					printf("Error!\n");
-					return 0;
+					continue;
 				}
-				printf("Your voltage is: %d\n", result);
-				return 0;
+				else if (result == 0)
+				{
+					continue;
+				}
+				printf("Your result is: %.2f\n", result);
+				break;
 			}
 			
 			case 2: 
@@ -51,17 +55,17 @@ int main(void)
 				printf("Please select a valid option!\n");
 				break;
 			}
-			return 0;
 		}
 	}
 	return 0;
 }
 
-int ohmsLawCalculator(void) 
+float ohmsLawCalculator(void) 
 {
 	printf("1. Solve for Voltage\n");
 	printf("2. Solve for Current\n");
 	printf("3. Solve for Resistance\n");
+	printf("4. Back\n");
 
 	int isActive = 1;
 	int userInput = 0;
@@ -83,32 +87,65 @@ int ohmsLawCalculator(void)
 			{
 				case 1:
 				{
-					int voltage = 0;
-					int current = 0;
-					int resistance = 0;
+					float voltage = 0;
+					float current = 0;
+					float resistance = 0;
 					printf("Enter your Current(Amperes): ");
-					scanf("%d", &current);
-					printf("\n");
+					scanf("%f", &current);
 					printf("Enter your Resistance(Ohms): ");
-					scanf("%d", &resistance);
-					printf("\n");
+					scanf("%f", &resistance);
 
 					voltage = current * resistance;
 
 					return voltage;
 				}
+
+				case 2: 
+				{
+					float voltage = 0;
+					float current = 0;
+					float resistance = 0;
+					printf("Enter your Voltage: ");
+					scanf("%f", &voltage);
+					printf("Enter your Resistance(Ohms): ");
+					scanf("%f", &resistance);
+
+					current = voltage / resistance;
+
+					return current;
+				}
+
+				case 3: 
+				{
+					float voltage = 0;
+					float current = 0;
+					float resistance = 0;
+					printf("Enter your Voltage: ");
+					scanf("%f", &voltage);
+					printf("Enter your Current(Amperes): ");
+					scanf("%f", &current);
+
+					resistance = voltage / current;
+
+					return resistance;
+
+				}
+
+				case 4: 
+				{
+					return 0;
+				}
 			
 				default: 
 				{
 					printf("Please select a valid option!\n");	
-					continue;
+					break;
 				}
 			}
 
 		}	
 
-		return -1;
 	}
 	
-	return 0;
+	return -1;
 }
